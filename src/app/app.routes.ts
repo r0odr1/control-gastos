@@ -3,7 +3,9 @@ import { ExpenseTrackerComponent } from './components/expense-tracker/expense-tr
 
 export const routes: Routes = [
   {
-    path: '',
-    component: ExpenseTrackerComponent
+    path: 'expenses',
+    loadComponent: () =>
+    import('./components/expense-tracker/expense-tracker')
+      .then(m => m.ExpenseTrackerComponent)
   }
 ];

@@ -1,9 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService, Person, Expense } from '../../services/expense.service';
-import { CommonModule } from '@angular/common';
+import { CommonModule, NgFor } from '@angular/common';
 
 @Component({
   selector: 'app-expense-tracker',
+  standalone: true,
   imports: [CommonModule],
   templateUrl: './expense-tracker.html',
   styleUrls: ['./expense-tracker.css']

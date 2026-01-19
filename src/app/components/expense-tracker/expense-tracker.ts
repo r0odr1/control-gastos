@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { ExpenseService, Person, Expense } from '../../services/expense.service';
-import { CommonModule, NgFor } from '@angular/common';
+import { CommonModule } from '@angular/common';
 
 @Component({
   selector: 'app-expense-tracker',
@@ -21,11 +21,21 @@ export class ExpenseTrackerComponent implements OnInit {
     });
   }
 
-  get currentPerson(): Person {
-    return this.people[this.activePerson];
+  get currentPerson(): Person | null {
+    return this.people.length > 0 ? this.people[this.activePerson] : null;
   }
 
   get totals() {
+    if(!this.currentPerson) {
+      return {
+        totalInAccount: 0,
+        totalInNequi: 0,
+        remaining: 0,
+        totalGC: 0,
+        totalGN: 0,
+        totalIngresa: 0,
+      };
+    }
     return this.expenseService.calculateTotals(this.currentPerson);
   }
 
@@ -39,12 +49,21 @@ export class ExpenseTrackerComponent implements OnInit {
   }
 
   updatePersonName(index: number, name: string): void {
-    const person = { ...this.people[index], name };
+    const current = this.people[index];
+    if (!current) return;
+
+    const person: Person = { ...current, name };
     this.expenseService.updatePerson(index, person);
   }
 
   updatePersonField(field: keyof Person, value: number): void {
-    const person = { ...this.currentPerson, [field]: value };
+    if (!this.currentPerson) return;
+
+    const person = {
+      ...this.currentPerson,
+      [field]: value
+    };
+
     this.expenseService.updatePerson(this.activePerson, person);
   }
 

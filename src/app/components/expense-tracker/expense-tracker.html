@@ -39,152 +39,152 @@
       </div>
 
       <!-- Ingresos -->
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
-        <div class="bg-blue-900 text-white p-4 rounded-lg">
-          <label class="block text-sm mb-2">Ingreso mensual</label>
-          <input
-            type="number"
-            [value]="currentPerson.monthlyIncome || ''"
-            (input)="updatePersonField('monthlyIncome', +$any($event.target).value)"
-            class="w-full bg-blue-800 text-white px-3 py-2 rounded"
-            placeholder="0"
-          />
-          <label class="block text-sm mb-2 mt-3">Nequi</label>
-          <input
-            type="number"
-            [value]="currentPerson.nequiIncome || ''"
-            (input)="updatePersonField('nequiIncome', +$any($event.target).value)"
-            class="w-full bg-blue-800 text-white px-3 py-2 rounded"
-            placeholder="0"
-          />
-          <div class="mt-3 pt-3 border-t border-blue-700">
-            <div class="flex justify-between font-bold">
-              <span>TOTAL INGRESO</span>
-              <span
-                >$
-                {{
-                  (currentPerson.monthlyIncome + currentPerson.nequiIncome).toLocaleString()
-                }}</span
-              >
+       @if (currentPerson; as person) {
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-4 mb-6">
+            <div class="bg-blue-900 text-white p-4 rounded-lg">
+              <label class="block text-sm mb-2">Ingreso mensual</label>
+              <input
+                type="number"
+                [value]="person.monthlyIncome  || ''"
+                (input)="updatePersonField('monthlyIncome', +$any($event.target).value)"
+                class="w-full bg-blue-800 text-white px-3 py-2 rounded"
+                placeholder="0"
+              />
+              <label class="block text-sm mb-2 mt-3">Nequi</label>
+              <input
+                type="number"
+                [value]="person.nequiIncome || ''"
+                (input)="updatePersonField('nequiIncome', +$any($event.target).value)"
+                class="w-full bg-blue-800 text-white px-3 py-2 rounded"
+                placeholder="0"
+              />
+              <div class="mt-3 pt-3 border-t border-blue-700">
+                <div class="flex justify-between font-bold">
+                  <span>TOTAL INGRESO</span>
+                  <span
+                    >$
+                    {{
+                      (person.monthlyIncome + person.nequiIncome).toLocaleString()
+                    }}</span
+                  >
+                </div>
+              </div>
             </div>
-          </div>
-        </div>
 
-        <div class="bg-purple-900 text-white p-4 rounded-lg">
-          <div class="mb-3">
-            <div class="flex justify-between mb-2">
-              <span>Total en cuenta</span>
-              <span class="bg-yellow-400 text-black px-3 py-1 rounded font-bold">
-                $ {{ totals.totalInAccount.toLocaleString() }}
-              </span>
-            </div>
-            <div class="flex justify-between">
-              <span>Total en nequi</span>
-              <span class="font-bold">$ {{ totals.totalInNequi.toLocaleString() }}</span>
-            </div>
-          </div>
-          <div class="mt-3 pt-3 border-t border-purple-700">
-            <div class="flex justify-between font-bold bg-purple-800 px-3 py-2 rounded">
-              <span>Queda</span>
-              <span>$ {{ totals.remaining.toLocaleString() }}</span>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Resumen de gastos -->
-      <div class="bg-gray-100 p-4 rounded-lg mb-6">
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
-          <div class="bg-white p-3 rounded shadow">
-            <div class="text-sm text-gray-600">Gastos Cuenta (GC)</div>
-            <div class="text-2xl font-bold text-red-600">
-              $ {{ totals.totalGC.toLocaleString() }}
+            <div class="bg-purple-900 text-white p-4 rounded-lg">
+              <div class="mb-3">
+                <div class="flex justify-between mb-2">
+                  <span>Total en cuenta</span>
+                  <span class="bg-yellow-400 text-black px-3 py-1 rounded font-bold">
+                    $ {{ totals.totalInAccount.toLocaleString() }}
+                  </span>
+                </div>
+                <div class="flex justify-between">
+                  <span>Total en nequi</span>
+                  <span class="font-bold">$ {{ totals.totalInNequi.toLocaleString() }}</span>
+                </div>
+              </div>
+              <div class="mt-3 pt-3 border-t border-purple-700">
+                <div class="flex justify-between font-bold bg-purple-800 px-3 py-2 rounded">
+                  <span>Queda</span>
+                  <span>$ {{ totals.remaining.toLocaleString() }}</span>
+                </div>
+              </div>
             </div>
           </div>
-          <div class="bg-white p-3 rounded shadow">
-            <div class="text-sm text-gray-600">Gastos Nequi (GN)</div>
-            <div class="text-2xl font-bold text-orange-600">
-              $ {{ totals.totalGN.toLocaleString() }}
+          <!-- Resumen de gastos -->
+          <div class="bg-gray-100 p-4 rounded-lg mb-6">
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <div class="bg-white p-3 rounded shadow">
+                <div class="text-sm text-gray-600">Gastos Cuenta (GC)</div>
+                <div class="text-2xl font-bold text-red-600">
+                  $ {{ totals.totalGC.toLocaleString() }}
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded shadow">
+                <div class="text-sm text-gray-600">Gastos Nequi (GN)</div>
+                <div class="text-2xl font-bold text-orange-600">
+                  $ {{ totals.totalGN.toLocaleString() }}
+                </div>
+              </div>
+              <div class="bg-white p-3 rounded shadow">
+                <div class="text-sm text-gray-600">Total Ingresos Adicionales</div>
+                <div class="text-2xl font-bold text-green-600">
+                  $ {{ totals.totalIngresa.toLocaleString() }}
+                </div>
+              </div>
             </div>
-          </div>
-          <div class="bg-white p-3 rounded shadow">
-            <div class="text-sm text-gray-600">Total Ingresos Adicionales</div>
-            <div class="text-2xl font-bold text-green-600">
-              $ {{ totals.totalIngresa.toLocaleString() }}
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- Tabla de gastos -->
-      <div class="bg-white rounded-lg shadow overflow-x-auto">
-        <table class="w-full">
-          <thead class="bg-gray-800 text-white">
-            <tr>
-              <th class="px-4 py-3 text-left">Descripción</th>
-              <th class="px-4 py-3 text-right">GC</th>
-              <th class="px-4 py-3 text-right">GN</th>
-              <th class="px-4 py-3 text-right">Ingresa</th>
-              <th class="px-4 py-3"></th>
-            </tr>
-          </thead>
-          <tbody>
-            @for (expense of currentPerson.expenses; track expense.id; let i = $index) {
-            <tr [class]="i % 2 === 0 ? 'bg-gray-50' : 'bg-white'">
-              <td class="px-4 py-2">
-                <input
-                  type="text"
-                  [value]="expense.description"
-                  (input)="updateExpense(expense.id, 'description', $any($event.target).value)"
-                  class="w-full border border-gray-300 rounded px-2 py-1"
-                  placeholder="Descripción..."
-                />
-              </td>
-              <td class="px-4 py-2">
-                <input
-                  type="number"
-                  [value]="expense.gc || ''"
-                  (input)="updateExpense(expense.id, 'gc', +$any($event.target).value)"
-                  class="w-full border border-gray-300 rounded px-2 py-1 text-right"
-                  placeholder="0"
-                />
-              </td>
-              <td class="px-4 py-2">
-                <input
-                  type="number"
-                  [value]="expense.gn || ''"
-                  (input)="updateExpense(expense.id, 'gn', +$any($event.target).value)"
-                  class="w-full border border-gray-300 rounded px-2 py-1 text-right"
-                  placeholder="0"
-                />
-              </td>
-              <td class="px-4 py-2">
-                <input
-                  type="number"
-                  [value]="expense.ingresa || ''"
-                  (input)="updateExpense(expense.id, 'ingresa', +$any($event.target).value)"
-                  class="w-full border border-gray-300 rounded px-2 py-1 text-right"
-                  placeholder="0"
-                />
-              </td>
-              <td class="px-4 py-2">
-                <button (click)="deleteExpense(expense.id)" class="text-red-600 hover:text-red-800">
-                  🗑️
+            <!-- Tabla de gastos -->
+            <div class="bg-white rounded-lg shadow overflow-x-auto">
+              <table class="w-full">
+                <thead class="bg-gray-800 text-white">
+                  <tr>
+                    <th class="px-4 py-3 text-left">Descripción</th>
+                    <th class="px-4 py-3 text-right">GC</th>
+                    <th class="px-4 py-3 text-right">GN</th>
+                    <th class="px-4 py-3 text-right">Ingresa</th>
+                    <th class="px-4 py-3"></th>
+                  </tr>
+                </thead>
+                <tbody>
+                  @for (expense of person.expenses; track expense.id; let i = $index) {
+                    <tr [class]="i % 2 === 0 ? 'bg-gray-50' : 'bg-white'">
+                      <td class="px-4 py-2">
+                        <input
+                          type="text"
+                          [value]="expense.description"
+                          (input)="updateExpense(expense.id, 'description', $any($event.target).value)"
+                          class="w-full border border-gray-300 rounded px-2 py-1"
+                          placeholder="Descripción..."
+                        />
+                      </td>
+                      <td class="px-4 py-2">
+                        <input
+                          type="number"
+                          [value]="expense.gc || ''"
+                          (input)="updateExpense(expense.id, 'gc', +$any($event.target).value)"
+                          class="w-full border border-gray-300 rounded px-2 py-1 text-right"
+                          placeholder="0"
+                        />
+                      </td>
+                      <td class="px-4 py-2">
+                        <input
+                          type="number"
+                          [value]="expense.gn || ''"
+                          (input)="updateExpense(expense.id, 'gn', +$any($event.target).value)"
+                          class="w-full border border-gray-300 rounded px-2 py-1 text-right"
+                          placeholder="0"
+                        />
+                      </td>
+                      <td class="px-4 py-2">
+                        <input
+                          type="number"
+                          [value]="expense.ingresa || ''"
+                          (input)="updateExpense(expense.id, 'ingresa', +$any($event.target).value)"
+                          class="w-full border border-gray-300 rounded px-2 py-1 text-right"
+                          placeholder="0"
+                        />
+                      </td>
+                      <td class="px-4 py-2">
+                        <button (click)="deleteExpense(expense.id)" class="text-red-600 hover:text-red-800">
+                          🗑️
+                        </button>
+                      </td>
+                    </tr>
+                  }
+                </tbody>
+              </table>
+              <div class="p-4 border-t">
+                <button
+                  (click)="addExpense()"
+                  class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
+                >
+                  ➕ Agregar Gasto/Ingreso
                 </button>
-              </td>
-            </tr>
-            }
-          </tbody>
-        </table>
-        <div class="p-4 border-t">
-          <button
-            (click)="addExpense()"
-            class="flex items-center gap-2 bg-green-600 text-white px-4 py-2 rounded-lg hover:bg-green-700 transition"
-          >
-            ➕ Agregar Gasto/Ingreso
-          </button>
-        </div>
-      </div>
+              </div>
+            </div>
+          </div>
+       }
 
       <!-- Total combinado -->
       @if (people.length > 1){
